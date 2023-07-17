@@ -30,7 +30,7 @@ class BdrOssController extends Controller
 
         $data["email"] = "moch.n.arifin@gmail.com";
         $data["title"] = "Borobudur Online Single Submission";
-        $data["body"] = "Detail Informasi<br>Nama Instansi : ".$oss->inc_name."<br>Tipe Instansi : ".$oss->inc_type."<br>Nama PIC : ".$oss->pic."<br>Kontak PIC : ".$oss->no_pic."<br>Email PIC : ".$oss->email_pic."<br>Waktu Kunjungan : ".$oss->plan_time."WIB ".$oss->plan_date;
+        $data["body"] = "Detail Informasi<br>Nama Instansi : ".$oss->inc_name."<br>Tipe Instansi : ".$oss->inc_type."<br>Nama PIC : ".$oss->pic."<br>Kontak PIC : ".$oss->no_pic."<br>Email PIC : ".$oss->email_pic."<br>Waktu Kunjungan : ".$oss->plan_time." WIB ".$oss->plan_date;
 
         // return $count;
         for ($i=0; $i < $count; $i++) { 

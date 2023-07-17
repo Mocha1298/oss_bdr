@@ -164,14 +164,20 @@
                                                                     <td><strong>{{ $list->people }}</strong></td>
                                                                 </tr>
                                                             </table>
-                                                            <p><strong>Konfirmasi Jumlah Orang :</strong></p>
                                                             <form action="/approve/{{ $list->id }}" method="post">
                                                                 @csrf
+                                                                <p><strong>Konfirmasi Jumlah Orang:</strong></p>
                                                                 <div class="form-group">
                                                                     <input type="number" class="form-control"
                                                                         id="text" aria-describedby="text"
                                                                         name="people" required
                                                                         value="{{ $list->people }}">
+                                                                </div>
+                                                                <p><strong>Kode Voucher:</strong></p>
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        id="text" aria-describedby="text"
+                                                                        name="voucher" required>
                                                                 </div>
                                                                 <div class="text-end mt-2">
                                                                     <button type="submit" class="btn btn-primary"

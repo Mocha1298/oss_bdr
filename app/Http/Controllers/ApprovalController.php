@@ -20,7 +20,7 @@ class ApprovalController extends Controller
     function approved(Request $req,$id) {
         $oss = OssModel::find($id);
         $oss->people_fix = $req->people;
-        // return $oss;
+        $oss->voucher = $req->voucher;
         $oss->status = 1;
         $oss->save();
         // $data = [
@@ -31,7 +31,7 @@ class ApprovalController extends Controller
         // return $data['email'];
         $data["email"] = $oss->email_pic;
         $data["title"] = "Permintaan Anda telah disetujui";
-        $data["body"] = "Berikut detail tiket yang dapat Anda gunakan pada tanggal ".$oss->plan_date." pukul ".$oss->plan_time;
+        $data["body"] = "Dibawah terlampir Kode Voucher yang dapat Anda tukarkan di loket pada tanggal ".$oss->plan_date." pukul ".$oss->plan_time."<br><h3 style='border:1px;background:#cecece'>".$oss->voucher."<h3>";
         Mail::send('mail', $data, function($message)use($data){
             $message->to($data['email'])
                     ->subject($data['title']);

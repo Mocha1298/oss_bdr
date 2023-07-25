@@ -26,7 +26,9 @@
 @section('script')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        let table = new DataTable('#datatable');
+        new DataTable('#datatable', {
+            order: [[0, 'desc']]
+        });
 
         function dismiss(id) {
             Swal.fire({
@@ -42,6 +44,9 @@
         }
     </script>
 @endsection
+@php
+    use Carbon\Carbon;
+@endphp
 
 @section('main')
     <div class="col-sm-12">
@@ -51,6 +56,7 @@
                     <table id="datatable" class="table mb-0" data-toggle role="grid">
                         <thead>
                             <tr>
+                                <th> Dibuat Pada</th>
                                 <th> Nama Instansi</th>
                                 <th> Jenis Instansi</th>
                                 <th> Nama PIC</th>
@@ -65,6 +71,7 @@
                         <tbody>
                             @foreach ($oss as $list)
                                 <tr>
+                                    <td>{{$list->created_at->isoFormat('dddd, D MMMM Y')}}</td>
                                     <td>{{ $list->inc_name }}</td>
                                     <td>{{ $list->inc_type }}</td>
                                     <td>{{ $list->pic }}</td>
@@ -77,7 +84,7 @@
                                             {{ $list->people_fix }}
                                         @endif
                                     </td>
-                                    <td>{{ $list->plan_date }} {{ $list->plan_time }}</td>
+                                    <td>{{ $list->plan_time }} {{ Carbon::parse($list->plan_date)->isoFormat('dddd, D MMMM Y') }}</td>
                                     <td>
                                         @if ($list->status == 0)
                                             <span class="badge rounded-pill text-bg-warning">Pending</span>
@@ -147,7 +154,7 @@
                                                                 <tr>
                                                                     <td>PIC Instansi</td>
                                                                     <td><strong>{{ $list->pic }}
-                                                                            ({{ $list->pic_email }})
+                                                                            ({{ $list->email_pic }})
                                                                         </strong></td>
                                                                 </tr>
                                                                 <tr>

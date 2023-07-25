@@ -31,7 +31,11 @@ class ApprovalController extends Controller
         // return $data['email'];
         $data["email"] = $oss->email_pic;
         $data["title"] = "Permintaan Anda telah disetujui";
-        $data["body"] = "Dibawah terlampir Kode Voucher yang dapat Anda tukarkan di loket pada tanggal ".$oss->plan_date." pukul ".$oss->plan_time."<br><h3 style='border:1px;background:#cecece'>".$oss->voucher."<h3>";
+        $data["body"] = "<span style='color:black;'>Dibawah terlampir <strong>Kode Voucher</strong> yang dapat Anda tukarkan di loket saat Instansi Anda berkunjung pada:</span><br>
+                        Tanggal ".$oss->plan_date." Jam ".$oss->plan_time."<br>
+                        <div style='width:100%;height:70px;text-align:center;border:1px;background:#cecece'>
+                        <h1 style='padding-top: 15px;'>".$oss->voucher."</h1>
+                        </div>";
         Mail::send('mail', $data, function($message)use($data){
             $message->to($data['email'])
                     ->subject($data['title']);

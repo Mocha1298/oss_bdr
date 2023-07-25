@@ -53,6 +53,7 @@ class ProfileController extends Controller
         $user = User::find($id);
         $data = [
             'user'=>$user,
+            'id'=>$id,
         ];
         // return $data;
         return view("users.edit",$data);
@@ -91,8 +92,8 @@ class ProfileController extends Controller
                         <strong>Email: ".$reset->email."<br>
                         Password: #UserOss2023</strong><br><br>
                         Mohon untuk segera memperbarui password Anda pada link berikut <br>
-                        <a href='report.twc.id/profile/".$reset->id."'>Halaman Edit Password</a><br>Terimakasih.";
-        Mail::send('admin.mail', $data, function($message)use($data){
+                        <a href='oss.borobudurpark.com/profile/".$reset->id."'>Halaman Edit Password</a><br>Terimakasih.";
+        Mail::send('users.mail', $data, function($message)use($data){
             $message->to($data['email'])
                     ->subject($data['title']);
         });

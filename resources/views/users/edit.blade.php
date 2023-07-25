@@ -32,9 +32,9 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <form method="POST" action="/newuser">
+                    <form method="POST" action="/profile/{{ $id }}" style="font-size: 13px">
                         @csrf
-                        <div class="modal-body">
+                        <div class="row">
                             {{-- NAMA --}}
                             <div class="form-group">
                                 <label for="name" class="form-label">Nama</label>
@@ -49,10 +49,30 @@
                                     value="{{ $user->email }}" required placeholder="Email">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                             </div>
-                            <div class="text-end mt-4 mb-4">
-                                <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary"
-                                    data-bs-dismiss="modal">Save</button>
-                            </div>
+                            @if (Auth::user()->role == 0)
+                                <!-- Password Reset Token -->
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            aria-describedby="password" required autocomplete="current-password"
+                                            placeholder="Password">
+                                    </div>
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                </div>
+                                {{-- CONFIRM --}}
+                                <div class="form-group">
+                                    <label for="password">Confirm Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation" type="password"
+                                        name="password_confirmation" required autocomplete="new-password"
+                                        placeholder="Confirm Password" />
+                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
+                                </div>
+                            @endif
+                        </div>
+                        <div class="text-end mt-4 mb-4">
+                            <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary"
+                                data-bs-dismiss="modal">Save</button>
                         </div>
                     </form>
                 </div>

@@ -146,6 +146,7 @@
                                 <tr class="ligth">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Role</th>
                                     <th>Reset Password</th>
                                     <th style="min-width: 100px">Action</th>
                                 </tr>
@@ -155,6 +156,15 @@
                                     <tr>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>
+                                            <span class="badge bg-primary">
+                                                @if ($item->role == 1)
+                                                    Admin
+                                                @else
+                                                    User
+                                                @endif
+                                            </span>
+                                        </td>
                                         <td>
                                             <div class="flex align-items-center list-user-action">
                                                 <a class="btn btn-sm btn-icon text-danger " data-bs-toggle="tooltip"

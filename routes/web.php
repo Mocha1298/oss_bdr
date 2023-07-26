@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LevelApprovalController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,19 @@ Route::middleware('auth')->group(function (){
     Route::get('/approval','App\Http\Controllers\ApprovalController@index');
     Route::post('/approve/{id}','App\Http\Controllers\ApprovalController@approved');
     Route::get('/dismiss/{id}','App\Http\Controllers\ApprovalController@dismissed');
+
+    Route::get('/level',[LevelApprovalController::class,'index']);
+    Route::post('/get_user',[LevelApprovalController::class,'get_user']);
+    Route::post('/level',[LevelApprovalController::class,'store']);
+    Route::get('/levele/{id}',[LevelApprovalController::class,'edit']);
+    Route::post('/levele/{id}',[LevelApprovalController::class,'update']);
+    Route::get('/leveld/{id}',[LevelApprovalController::class,'delete']);
+
+    Route::get('/site',[SiteController::class,'index']);
+    Route::post('/site',[SiteController::class,'store']);
+    Route::get('/sitee/{id}',[SiteController::class,'edit']);
+    Route::post('/sitee/{id}',[SiteController::class,'update']);
+    Route::get('/sited/{id}',[SiteController::class,'delete']);
 });
 
 Route::get('/login', 'App\Http\Controllers\CustomAuthController@index')->name('login');

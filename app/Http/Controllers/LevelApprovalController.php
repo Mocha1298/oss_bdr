@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LevelModel;
 use App\Models\SiteModel;
+use App\Models\User;
 
 class LevelApprovalController extends Controller
 {
     function index() {
-        $level = LevelModel::all();
+        $level = LevelModel::join('users','users.id','levels.id_user')
+        ->join('sites','sites.id','users.id_site')
+        ->select('levels.id','levels.level','users.name','sites.site_name')->get();
         $site = SiteModel::all();
+        $users = User::all();
         $data = [
             'site'=>$site,
             'level'=>$level,
+            'users'=>$users,
         ];
         return view('level.index',$data);
     }
@@ -22,8 +27,8 @@ class LevelApprovalController extends Controller
         $cek_level = LevelModel::where('id_site',$req->id_site)->select('id')->get();
         $count = count($cek_level);
         $level = new LevelModel();
-        if($site->approvement_level < $count){
-            $level->level = $req->level;
+        if($site->approvement_level > $count){
+            $level->level = $count+1;
             $level->id_user = $req->id_user;
             $level->id_site = $req->id_site;
             $level->save();
@@ -50,5 +55,9 @@ class LevelApprovalController extends Controller
         $level = LevelModel::find($id);
         $level->delete();
         return redirect()->back()->with('hapus','Berhasil');
+    }
+    function get_user(Request $req) {
+        $user = User::where('id_site',$req->id_site)->get();
+        return $user;
     }
 }

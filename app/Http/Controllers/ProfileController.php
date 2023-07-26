@@ -14,6 +14,7 @@ use App\Models\Master;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Models\SiteModel;
 
 class ProfileController extends Controller
 {
@@ -28,7 +29,11 @@ class ProfileController extends Controller
     }
     
     function create() {
-        return view('users.newuser');
+        $site = SiteModel::all();
+        $data = [
+            'site'=>$site
+        ];
+        return view('users.newuser',$data);
     }
 
     public function store(Request $request): RedirectResponse
@@ -36,13 +41,15 @@ class ProfileController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'id_site'=>['required'],
         ]);
         
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make("#UserReport2023"),
-            'role' => $request->role,
+            'role' => 0,
+            'id_site' => $request->id_site,
         ]);
 
         return redirect("/user")->with("success","Berhasil");

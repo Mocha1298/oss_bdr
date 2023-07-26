@@ -1,6 +1,6 @@
 @extends('layout')
-@section('title', 'Approvement Levels')
-@section('level', 'active')
+@section('title', 'Sites Management')
+@section('site', 'active')
 @section('isdash', 0)
 
 @section('css')
@@ -56,7 +56,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'get',
-                        url: '/leveld/' + id,
+                        url: '/sited/' + id,
                         beforeSend: function() {
                             swal.fire({
                                 html: '<h5>Sedang Hapus</h5>',
@@ -79,42 +79,6 @@
                 }
             })
         }
-
-        function get_user(id) {
-            $.ajax({
-                type: 'post',
-                url: '/get_user',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id_site: id
-                },
-                beforeSend: function() {
-                    swal.fire({
-                        html: '<h5>Loading Users</h5>',
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading()
-                        }
-                    });
-                },
-                success: function(response) {
-                    console.log(response);
-                    $('#id_user').empty();
-                    $.each(response, function(index, response) {
-                        console.log(response);
-                        if (response.name == " ") {
-                            $('#id_user').append('<option value="' + response.id + '">Kosong</option>');
-                        } else {
-                            $('#id_user').append('<option value="' + response.id + '">' + response
-                                .name +
-                                '</option>');
-                        }
-                    })
-                    Swal.close()
-                }
-            });
-        }
     </script>
 @endsection
 @php
@@ -126,7 +90,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="header-title">
-                    <h4 class="card-title">Approvement Levels List</h4>
+                    <h4 class="card-title">Sites List</h4>
                 </div>
                 <a href="#" class=" text-center btn btn-primary btn-icon mt-lg-0 mt-md-0 mt-3" data-bs-toggle="modal"
                     data-bs-target="#modal-volume" style="border:none;background: #00A7E6;">
@@ -144,32 +108,13 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Add New Level</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Add New Site</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form action="/level" method="post">
                                     @csrf
-                                    <div class="form-group">
-                                        <label for="text" class="form-label">Site</label>
-                                        <select name="id_site" id="id_site" class="form-control" required
-                                            onchange="get_user(this.value);">
-                                            <option selected disabled value="">--Pilih Site--
-                                            </option>
-                                            @foreach ($site as $item)
-                                                <option @if (old('id_site') == $item->id) selected @endif
-                                                    value="{{ $item->id }}">{{ $item->site_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="text" class="form-label">User</label>
-                                        <select name="id_user" id="id_user" class="form-control" required>
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
                                     <div class="text-end mt-2">
                                         <button type="submit" class="btn btn-primary"
                                             style="border:none;background: #00A7E6;">Save</button>
@@ -186,22 +131,20 @@
                         <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
                             <thead>
                                 <tr class="ligth">
-                                    <th>Level</th>
-                                    <th>User</th>
-                                    <th>Site</th>
+                                    <th>Site Name</th>
+                                    <th>Number of Levels</th>
                                     <th style="min-width: 100px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($level as $item)
+                                @foreach ($site as $item)
                                     <tr>
-                                        <td>{{ $item->level }}</td>
-                                        <td>{{ $item->name }}</td>
                                         <td>{{ $item->site_name }}</td>
+                                        <td>{{ $item->approvement_level }}</td>
                                         <td>
                                             <div class="flex align-items-center list-user-action">
                                                 <a class="btn btn-sm btn-icon text-primary" data-bs-toggle="tooltip"
-                                                    href="/levele/{{ $item->id }}" aria-label="Edit"
+                                                    href="/sitee/{{ $item->id }}" aria-label="Edit"
                                                     data-bs-original-title="Edit">
                                                     <span class="btn-inner">
                                                         <svg class="icon-20" width="20" viewBox="0 0 24 24"

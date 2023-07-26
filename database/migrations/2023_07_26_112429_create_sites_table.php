@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('sites', function (Blueprint $table) {
             $table->id();
             $table->string("site_name");
+            $table->integer('approvement_level');
             $table->timestamps();
         });
     }

@@ -39,17 +39,18 @@ class LevelApprovalController extends Controller
     }
     function edit($id) {
         $level = LevelModel::find($id);
+        $user = User::where('id_site',$level->id_site)->get();
         $data = [
+            'user'=>$user,
             'level'=>$level,
         ];
         return view('level.edit',$data);
     }
     function update(Request $req,$id) {
         $level = LevelModel::find($id);
-        $level->level = $req->level;
         $level->id_user = $req->id_user;
         $level->save();
-        return redirect()->back()->with('sukses','Berhasil');
+        return redirect('/level')->with('sukses','Berhasil');
     }
     function delete($id) {
         $level = LevelModel::find($id);
@@ -57,7 +58,7 @@ class LevelApprovalController extends Controller
         return redirect()->back()->with('hapus','Berhasil');
     }
     function get_user(Request $req) {
-        $user = User::where('id_site',$req->id_site)->get();
+        $user = User::where('id_site',$req->id_site)->where('role',0)->get();
         return $user;
     }
 }

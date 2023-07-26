@@ -49,15 +49,19 @@
                                     value="{{ old('email') }}" required placeholder="Email">
                                 <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                             </div>
-                            <select name="id_site" id="id_site" class="form-control" required>
-                                <option selected disabled value="">--Pilih Site--
-                                </option>
-                                @foreach ($site as $item)
-                                    <option @if (old('id_site') == $item->id) selected @endif value="{{ $item->id }}">
-                                        {{ $item->site_name }}
+                            <div class="form-group">
+                                <label for="email" class="form-label">Site</label>
+                                <select name="id_site" id="id_site" class="form-control" required>
+                                    <option selected disabled value="">--Pilih Site--
                                     </option>
-                                @endforeach
-                            </select>
+                                    @foreach ($site as $item)
+                                        <option @if (old('id_site') == $item->id) selected @endif
+                                            value="{{ $item->id }}">
+                                            {{ $item->site_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="text-end mt-4 mb-4">
                                 <button style="border:none;background: #00A7E6;" type="submit" class="btn btn-primary"
                                     data-bs-dismiss="modal">Save</button>

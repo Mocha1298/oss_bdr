@@ -146,6 +146,7 @@
                                 <tr class="ligth">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Site</th>
                                     <th>Role</th>
                                     <th>Reset Password</th>
                                     <th style="min-width: 100px">Action</th>
@@ -156,6 +157,7 @@
                                     <tr>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>{{ $item->site_name }}</td>
                                         <td>
                                             <span class="badge bg-primary">
                                                 @if ($item->role == 1)

@@ -73,7 +73,7 @@
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             })
-                            window.location.href = "/user";
+                            window.location.href = "/site";
                         }
                     });
                 }

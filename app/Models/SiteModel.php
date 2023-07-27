@@ -9,4 +9,8 @@ class SiteModel extends Model
 {
     use HasFactory;
     protected $table = "sites";
+    protected $fillable = [
+        'site_name',
+        'approvement_level',
+    ];
 }

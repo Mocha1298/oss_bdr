@@ -9,4 +9,8 @@ class ApprovementModel extends Model
 {
     use HasFactory;
     protected $table = "approvements";
+    protected $fillable = [
+        'id_level',
+        'id_user',
+    ];
 }

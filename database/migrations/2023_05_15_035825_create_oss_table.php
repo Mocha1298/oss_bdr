@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('no_pic');
             $table->string('email_pic');
             $table->string('people');
-            $table->string('people_fix');
-            $table->integer('status');
-            $table->string('voucher');
+            $table->integer('people_fix')->nullable();
+            $table->integer('status')->nullable();
+            $table->string('voucher')->nullabel();
             $table->string('plan_date');
             $table->string('plan_time');
             $table->integer('id_site')->nullable();

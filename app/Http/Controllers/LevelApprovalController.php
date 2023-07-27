@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\LevelModel;
 use App\Models\SiteModel;
 use App\Models\User;
+use DB;
 
 class LevelApprovalController extends Controller
 {
     function index() {
         $level = LevelModel::join('users','users.id','levels.id_user')
-        ->join('sites','sites.id','users.id_site')
-        ->select('levels.id','levels.level','users.name','sites.site_name')->get();
+        ->join('sites','sites.id','levels.id_site')
+        ->select('levels.id','levels.level','users.name','sites.site_name')
+        ->get();
+        // return $level;
         $site = SiteModel::all();
         $users = User::all();
         $data = [
@@ -24,17 +27,32 @@ class LevelApprovalController extends Controller
     }
     function store(Request $req) {
         $site = SiteModel::find($req->id_site);
-        $cek_level = LevelModel::where('id_site',$req->id_site)->select('id')->get();
-        $count = count($cek_level);
+        $count_site = $site->approvement_level;
+        $cek_level = LevelModel::where('id_site',$req->id_site)->select('level')->get();
+        // return $cek_level[1]->level;
+        $count_level = count($cek_level);
         $level = new LevelModel();
-        if($site->approvement_level > $count){
-            $level->level = $count+1;
+        $new_level = 0;
+        if($count_site > $count_level){
+            for ($a=0; $a < $count_site; $a++) { 
+                $cek = $a+1;
+                for ($b=0; $b < $count_level; $b++) { 
+                    if($a+1 == $cek_level[$b]->level){
+                        $cek = 0;
+                    }
+                }
+                if ($cek != 0) {
+                    $new_level = $cek;
+                    break;
+                }
+            }
+            $level->level = $new_level;
             $level->id_user = $req->id_user;
             $level->id_site = $req->id_site;
-            $level->save();
+            $level->save(); 
             return redirect()->back()->with('sukses','Berhasil');
         }else{
-            return redirect()->back()->with('error','Penuh');
+            return redirect()->back()->with('penuh','Penuh');
         }
     }
     function edit($id) {
@@ -55,7 +73,6 @@ class LevelApprovalController extends Controller
     function delete($id) {
         $level = LevelModel::find($id);
         $level->delete();
-        return redirect()->back()->with('hapus','Berhasil');
     }
     function get_user(Request $req) {
         $user = User::where('id_site',$req->id_site)->where('role',0)->get();

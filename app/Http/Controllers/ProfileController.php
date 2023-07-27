@@ -20,7 +20,7 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        $user = User::join('sites','sites.id','users.id_site')->get();
+        $user = User::join('sites','sites.id','users.id_site')->select('users.*','sites.site_name')->get();
         $data = [
             'user'=>$user,
         ];

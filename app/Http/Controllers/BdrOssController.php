@@ -7,14 +7,18 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\BdrOssMail;
 use App\Models\OssModel;
 use App\Models\OssFileModel;
+use App\Models\LevelModel;
 
 class BdrOssController extends Controller
 {
     public function post(Request $req)
     {
-        $this->validate($req,[
-            'dokumen' => 'required|max:10000'
-         ]);
+
+        $level = LevelModel::where('levels.id_site',1)
+        ->join('users','users.id','levels.id_user')
+        ->select('users.email')
+        ->orderBy('levels.level','asc')->first();
+        // return $level->email;
         $oss = new OssModel();
         $oss->inc_name = $req->inc_name;
         $oss->inc_type = $req->inc_type;
@@ -25,10 +29,11 @@ class BdrOssController extends Controller
         $oss->plan_date = $req->plan_date;
         $oss->plan_time = $req->plan_time;
         $oss->status = 0;
+        $oss->id_site = 1;
         $oss->save();
         $count = count($req->dokumen);
 
-        $data["email"] = "moch.n.arifin@gmail.com";
+        $data["email"] = $level->email;
         $data["title"] = "Borobudur Online Single Submission";
         $data["body"] = "Detail Informasi<br>Nama Instansi : ".$oss->inc_name."<br>Tipe Instansi : ".$oss->inc_type."<br>Nama PIC : ".$oss->pic."<br>Kontak PIC : ".$oss->no_pic."<br>Email PIC : ".$oss->email_pic."<br>Waktu Kunjungan : ".$oss->plan_time." WIB ".$oss->plan_date;
 

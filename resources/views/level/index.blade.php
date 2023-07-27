@@ -26,11 +26,7 @@
 @section('script')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        new DataTable('#datatable', {
-            order: [
-                [0, 'desc']
-            ]
-        });
+        new DataTable('#datatable');
 
         function dismiss(id) {
             Swal.fire({
@@ -73,7 +69,7 @@
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             })
-                            window.location.href = "/user";
+                            window.location.href = "/level";
                         }
                     });
                 }
@@ -116,6 +112,15 @@
             });
         }
     </script>
+    @if ($message = Session::get('penuh'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Semua Level Sudah Terpenuhi.',
+                timer: 2000,
+            })
+        </script>
+    @endif
 @endsection
 @php
     use Carbon\Carbon;
@@ -183,7 +188,7 @@
             <div class="card-body">
                 <div class="card-body px-0">
                     <div class="table-responsive">
-                        <table id="user-list-table" class="table" role="grid" data-bs-toggle="data-table">
+                        <table id="datatable" class="table" role="grid" data-bs-toggle="data-table">
                             <thead>
                                 <tr class="ligth">
                                     <th>Level</th>

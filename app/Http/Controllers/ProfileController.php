@@ -70,13 +70,14 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required'],
         ]);
         $user = User::find($id);
-        $user->password = Hash::make($request->password);
+        $user->name = $request->name;
+        $user->email = $request->email;
         $user->save();
 
-        return redirect()->back()->with('sukses','Berhasil');
+        return redirect('/user')->with('sukses','Berhasil');
     }
 
     public function destroy($id)

@@ -8,28 +8,19 @@ use App\Models\OssFileModel;
 use App\Models\User;
 use App\Models\LevelModel;
 use App\Models\ApprovementModel;
+use App\Models\SiteModel;
 use Mail;
 use DB;
+use Auth;
 
 class ApprovalController extends Controller
 {
     function index() {
-        $apr = DB::connection('mysql')->select("select t1.id,t1.inc_name,t1.inc_type,COUNT(t2.id) AS total_approval FROM oss t1 left OUTER JOIN approvements t2 ON t2.id_oss = t1.id GROUP BY t1.id,t1.inc_name,t1.inc_type");
-        return $apr;
-        $oss = OssModel::where('id_site',Auth::user()->id_site)->get();
-        return $oss;
-        $apr = ApprovementModel::where('id_site',Auth::user()->id_site)->get();
-        $table = [];
-        for ($i=0; $i < count($oss); $i++) { 
-            for ($y=0; $y < count($apr); $y++) { 
-                if($oss[$i]->id == $apr[$y]->id_oss){
-                    // $table[$i] =   ;
-                }
-            }
-        }
+        $oss = DB::connection('mysql')->select("select t1.id,t1.inc_name,t1.inc_type,t1.pic,t1.no_pic,t1.email_pic,t1.people,t1.people_fix,t1.plan_date,t1.plan_time,t1.status,t1.created_at,COUNT(t2.id) AS total_approval FROM oss t1 left OUTER JOIN approvements t2 ON t2.id_oss = t1.id GROUP BY t1.id,t1.inc_name,t1.inc_type,t1.pic,t1.no_pic,t1.email_pic,t1.people,t1.people_fix,t1.plan_date,t1.plan_time,t1.status,t1.created_at");
+        $level_user = User::join('levels','levels.id_user','users.id')->where('users.id',Auth::user()->id)->select('level')->first();
         $data = [
             'oss'=>$oss,
-            'apr'=>$apr,
+            'level_user'=>$level_user,
         ];
         return view('approval',$data);
     }

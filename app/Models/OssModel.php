@@ -9,4 +9,5 @@ class OssModel extends Model
 {
     use HasFactory;
     protected $table = "oss";
+    protected $dates = ['created_at'];
 }

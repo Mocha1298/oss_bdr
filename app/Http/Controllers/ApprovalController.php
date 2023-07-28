@@ -9,10 +9,13 @@ use App\Models\User;
 use App\Models\LevelModel;
 use App\Models\ApprovementModel;
 use Mail;
+use DB;
 
 class ApprovalController extends Controller
 {
     function index() {
+        $apr = DB::connection('mysql')->select("select t1.id,t1.inc_name,t1.inc_type,COUNT(t2.id) AS total_approval FROM oss t1 left OUTER JOIN approvements t2 ON t2.id_oss = t1.id GROUP BY t1.id,t1.inc_name,t1.inc_type");
+        return $apr;
         $oss = OssModel::where('id_site',Auth::user()->id_site)->get();
         return $oss;
         $apr = ApprovementModel::where('id_site',Auth::user()->id_site)->get();

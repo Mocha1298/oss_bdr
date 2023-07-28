@@ -6,14 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\OssModel;
 use App\Models\OssFileModel;
 use App\Models\User;
+use App\Models\LevelModel;
+use App\Models\ApprovementModel;
 use Mail;
 
 class ApprovalController extends Controller
 {
     function index() {
-        $oss =  OssModel::all();
+        $oss = OssModel::where('id_site',Auth::user()->id_site)->get();
+        return $oss;
+        $apr = ApprovementModel::where('id_site',Auth::user()->id_site)->get();
+        $table = [];
+        for ($i=0; $i < count($oss); $i++) { 
+            for ($y=0; $y < count($apr); $y++) { 
+                if($oss[$i]->id == $apr[$y]->id_oss){
+                    // $table[$i] =   ;
+                }
+            }
+        }
         $data = [
-            'oss'=>$oss
+            'oss'=>$oss,
+            'apr'=>$apr,
         ];
         return view('approval',$data);
     }

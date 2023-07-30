@@ -1,3 +1,7 @@
+@php
+    use App\Models\LevelModel;
+    $level = LevelModel::where('id_user', Auth::user()->id)->first();
+@endphp
 <!doctype html>
 <html lang="en" dir="ltr">
 
@@ -236,7 +240,7 @@
                                             @if (Auth::User()->role == 1)
                                                 Admin
                                             @else
-                                                User
+                                                Level {{ $level->level }}
                                             @endif
                                         </p>
                                     </div>

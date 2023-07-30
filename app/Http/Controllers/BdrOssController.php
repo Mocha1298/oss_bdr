@@ -16,7 +16,7 @@ class BdrOssController extends Controller
 
         $level = LevelModel::where('levels.id_site',1)
         ->join('users','users.id','levels.id_user')
-        ->select('users.email')
+        ->select('users.email','levels.level')
         ->orderBy('levels.level','asc')->first();
         // return $level->email;
         $oss = new OssModel();

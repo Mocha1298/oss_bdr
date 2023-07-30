@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/signout', 'App\Http\Controllers\CustomAuthController@signout')->name('signout');
     Route::get('/approval','App\Http\Controllers\ApprovalController@index');
     Route::post('/approve/{id}','App\Http\Controllers\ApprovalController@approved');
+    Route::get('/approve/{id_oss}/{id_user}','App\Http\Controllers\ApprovalController@approved_2nd');
     Route::get('/dismiss/{id}','App\Http\Controllers\ApprovalController@dismissed');
 
     Route::get('/level',[LevelApprovalController::class,'index']);

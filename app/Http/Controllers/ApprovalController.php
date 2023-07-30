@@ -41,6 +41,7 @@ class ApprovalController extends Controller
         $apr = new ApprovementModel();
         $apr->id_level = $cek_level->id;
         $apr->id_oss = $id_oss;
+        $apr->id_site = 1;
         $apr->save();
 
         $data["email"] = $oss->email_pic;

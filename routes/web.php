@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LevelApprovalController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,12 @@ Route::middleware('auth')->group(function (){
     Route::get('/sitee/{id}',[SiteController::class,'edit']);
     Route::post('/sitee/{id}',[SiteController::class,'update']);
     Route::get('/sited/{id}',[SiteController::class,'delete']);
+
+    Route::get('/form',[FormController::class,'index']);
+    Route::post('/form',[FormController::class,'store']);
+    Route::get('/forme/{id}',[FormController::class,'edit']);
+    Route::post('/forme/{id}',[FormController::class,'update']);
+    Route::get('/formd/{id}',[FormController::class,'delete']);
 });
 
 Route::get('/login', 'App\Http\Controllers\CustomAuthController@index')->name('login');

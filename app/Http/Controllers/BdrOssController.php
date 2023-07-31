@@ -13,7 +13,6 @@ class BdrOssController extends Controller
 {
     public function post(Request $req)
     {
-
         $level = LevelModel::where('levels.id_site',1)
         ->join('users','users.id','levels.id_user')
         ->select('users.email','levels.level')

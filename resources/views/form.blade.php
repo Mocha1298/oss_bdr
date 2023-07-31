@@ -40,7 +40,6 @@
         body,
         div,
         form,
-        input,
         select,
         textarea,
         label {
@@ -89,7 +88,12 @@
             border-radius: 3px;
         }
 
-        input {
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="email"],
+        input[type="file"],
+        input[type="time"] {
             width: calc(100% - 10px);
             padding: 5px;
         }
@@ -253,13 +257,12 @@
             }
 
             .container {
-                max-width: 90%;
+                max-width: 50%;
             }
 
             body,
             div,
             form,
-            input,
             select,
             textarea,
             label {
@@ -358,7 +361,6 @@
             body,
             div,
             form,
-            input,
             select,
             textarea,
             label {
@@ -407,7 +409,12 @@
                 border-radius: 3px;
             }
 
-            input {
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            input[type="email"],
+            input[type="file"],
+            input[type="time"] {
                 width: calc(100% - 10px);
                 padding: 5px;
             }
@@ -533,6 +540,74 @@
             /* css normal */
         }
     </style>
+    <style>
+        .containeradio {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .containeradio input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .containeradio:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .containeradio input:checked~.checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .containeradio input:checked~.checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .containeradio .checkmark:after {
+            top: 5px;
+            left: 5px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        label.containeradio {
+            font-size: 15px;
+            font-family: font-med;
+        }
+    </style>
 </head>
 
 <body style="background: rgb(190, 190, 190)">
@@ -552,80 +627,85 @@
                 <form action="/post-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="inc_name">Nama Instansi *)</label>
-                                <input id="inc_name" type="text" name="inc_name" required />
-                                <p class="sub-input">Nama instansi, contoh: PT xxx / CV xxx</p>
-                            </div>
+                        <div class="form-group col-md-12">
+                            <label for="inc_name">Nama Instansi *)</label>
+                            <input id="inc_name" type="text" name="inc_name" required />
+                            <p class="sub-input">Nama instansi, contoh: PT xxx / CV xxx</p>
                         </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="inc_type">Jenis Instansi *)</label>
-                                <input id="inc_type" type="text" name="inc_type" required />
-                                <p class="sub-input">Jenis instansi, contoh: Negeri/Swasta</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="pic">PIC *)</label>
-                                <input id="pic" type="text" name="pic" required />
-                                <p class="sub-input">Nama penanggung jawab dari pihak instansi.</p>
-                            </div>
+                    </div>
+                    <label for="">Jenis Instansi *)</label><br>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            {{-- <input id="inc_type" type="text" name="inc_type" required /> --}}
+                            <label class="containeradio">Negeri
+                                <input type="radio" name="inc_type" value="Negeri" onclick="hideother()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="containeradio">Swasta
+                                <input type="radio" name="inc_type" value="Swasta" onclick="hideother()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="containeradio">Lainya:
+                                <input type="radio" name="inc_type" onclick="showother()">
+                                <span class="checkmark"></span>
+                            </label>
+                            <input style="display:none" id="inc_type" type="text" name="inc_type" />
+                            <p class="sub-input">Jenis instansi, contoh: Negeri/Swasta/Lainnya</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="no_pic">Phone *)</label>
-                                <input id="no_pic" type="number" name="no_pic" required />
-                                <p class="sub-input">Kontak yang bisa dihubungi, contoh: 08xxxx.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="email_pic">Email *)</label>
-                                <input id="email_pic" type="email" name="email_pic" required />
-                                <p class="sub-input">Contoh: user@website.com.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="form-group">
-                                <label for="people">Jumlah Orang *)</label>
-                                <input id="people" type="number" name="people" required />
-                                <p class="sub-input">Jumlah orang dari instansi yang akan berkunjung.</p>
-                            </div>
+                        <div class="form-group col-md-12">
+                            <label for="pic">PIC *)</label>
+                            <input id="pic" type="text" name="pic" required />
+                            <p class="sub-input">Nama penanggung jawab dari pihak instansi.</p>
                         </div>
                     </div>
-                    <hr>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="no_pic">Phone *)</label>
+                            <input id="no_pic" type="number" name="no_pic" required />
+                            <p class="sub-input">Kontak yang bisa dihubungi, contoh: 08xxxx.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="email_pic">Email *)</label>
+                            <input id="email_pic" type="email" name="email_pic" required />
+                            <p class="sub-input">Contoh: user@website.com.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="people">Jumlah Orang *)</label>
+                            <input id="people" type="number" name="people" required />
+                            <p class="sub-input">Jumlah orang dari instansi yang akan berkunjung.</p>
+                        </div>
+                    </div>
                     <label for="">Rencana Kunjungan</label>
                     <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="form-group item">
-                                <label for="plan_date">Tanggal *)</label>
-                                <input id="plan_date" type="date" name="plan_date" required
-                                    min="{{ $date }}" />
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
+                        <div class="form-group col-md-12 item">
+                            <label for="plan_date">Tanggal *)</label>
+                            <input id="plan_date" type="date" name="plan_date" required
+                                min="{{ $date }}" />
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="form-group item">
-                                <label for="plan_date">Jam *)</label>
-                                <input id="plan_time" type="time" name="plan_time" required />
-                                <i class="fas fa-clock"></i>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 item">
+                            <label for="plan_date">Jam *)</label>
+                            <input id="plan_time" type="time" name="plan_time" required />
+                            <i class="fas fa-clock"></i>
                         </div>
                     </div>
                     <label for="dokumen">Dokumen Pendukung *)</label>
                     <div class="row" id="dokumen">
-                        <div class="col-lg-11 col-10">
+                        <div class="col-lg-10 col-10">
                             <div class="form-group item" id="item">
                                 <input id="1" type="file" name="dokumen[]" required onchange="cek(1)">
                             </div>
                         </div>
-                        <div class="col-lg-1 col-2 mt-3">
-                            <a class="tombol add mr-2" onclick="add()"><i style="color: #fff"
-                                    class="fa fa-plus"></i></a>
+                        <div class="col-lg-2 col-2 mt-3">
+                            <a class="tombol add" onclick="add()"><i style="color: #fff" class="fa fa-plus"></i></a>
                         </div>
                     </div>
                     <div class="add_dokumen"></div>
@@ -750,11 +830,11 @@
 
         function add() {
             var box_input = "<div class='row' id='field" + number + "'>"
-            box_input += "<div class='col-lg-11 col-10'>"
+            box_input += "<div class='col-lg-10 col-10'>"
             box_input += "<div class='form-group item' id='item'>"
             box_input += "<input id='" + number + "' type='file' name='dokumen[]' required onchange='cek(" + number +
                 ")'></div></div>"
-            box_input += "<div class='col-lg-1 col-2 mt-3'>"
+            box_input += "<div class='col-lg-2 col-2 mt-3'>"
             box_input += "<a class='tombol add mr-2' onclick='hapus(" + number +
                 ")'><i style='color: #fff'class='fa fa-minus'></i></a></div>"
             $('.add_dokumen').append(box_input);
@@ -816,20 +896,22 @@
                 }
             }
         }
+
+        function showother() {
+            console.log($("#inc_type"));
+            var input = $("#inc_type");
+            input.prop('required', true);
+            input.show();
+        }
+
+        function hideother() {
+            console.log($("#inc_type"));
+            var input = $("#inc_type");
+            input.prop('required', false);
+            input.hide();
+        }
         // alert('Your screen resolution is ' + screen.width + 'x' + screen.height);
     </script>
 </body>
 
 </html>
-{{-- // // Image preview
-                    // if (fileInput.files && fileInput.files[0]) {
-                    //     var reader = new FileReader();
-                    //     reader.onload = function(e) {
-                    //         document.getElementById(
-                    //                 'imagePreview').innerHTML =
-                    //             '<img src="' + e.target.result +
-                    //             '"/>';
-                    //     };
-
-                    //     reader.readAsDataURL(fileInput.files[0]);
-                    // } --}}

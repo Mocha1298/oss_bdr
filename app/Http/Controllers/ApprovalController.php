@@ -13,6 +13,7 @@ use App\Models\AprFileModel;
 use Mail;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApprovalController extends Controller
 {
@@ -67,8 +68,6 @@ class ApprovalController extends Controller
             $message->to($data["email"], $data["email"])
                     ->subject($data["title"]);
             $message->attach(public_path('files/'.$filename));
-            // foreach ($oss_file as $file){
-            // }
         });
         return redirect()->back()->with('sukses','1');
     }
@@ -94,6 +93,7 @@ class ApprovalController extends Controller
         $apr = new ApprovementModel();
         $apr->id_level = $level->id;
         $apr->id_oss = $id_oss;
+        $apr->id_site = 1;
         $apr->save();
 
         $count_apr = count(ApprovementModel::where('id_oss',$id_oss)->get());
@@ -101,9 +101,25 @@ class ApprovalController extends Controller
         $recipient = LevelModel::where('levels.id_site',1)->where('levels.level',$count_apr+1)->join('users','users.id','levels.id_user')->first();
 
         $oss = OssModel::find($id_oss);
-        $data["email"] = $level->email;
+        $data["email"] = $recipient->email;
         $data["title"] = "Borobudur Online Single Submission";
         $data["body"] = "Detail Informasi<br>Nama Instansi : ".$oss->inc_name."<br>Tipe Instansi : ".$oss->inc_type."<br>Nama PIC : ".$oss->pic."<br>Kontak PIC : ".$oss->no_pic."<br>Email PIC : ".$oss->email_pic."<br>Waktu Kunjungan : ".$oss->plan_time." WIB ".$oss->plan_date;
+
+        $oss_file = OssFileModel::where('id_oss',$id_oss)->get();
+        Mail::send('mail', $data, function($message)use($data, $oss_file) {
+            $message->to($data["email"], $data["email"])
+                    ->subject($data["title"]);
+            foreach ($oss_file as $file){
+                $message->attach(public_path('files/'.$file->file));
+            }
+            
+        });
         return redirect()->back()->with('sukses','1');
+    }
+    function showdoc($id) {
+        $pdfPath = 'files/1690648379apr.pdf'; // Path to the PDF file (modify as per your file's location)
+        $pdfContent = Storage::get($pdfPath);
+
+        return response()->json(base64_encode($pdfContent));
     }
 }

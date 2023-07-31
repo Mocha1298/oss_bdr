@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LevelApprovalController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\ApprovalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +36,11 @@ Route::middleware('auth')->group(function (){
         return view('dashboard');
     });
     Route::get('/signout', 'App\Http\Controllers\CustomAuthController@signout')->name('signout');
-    Route::get('/approval','App\Http\Controllers\ApprovalController@index');
-    Route::post('/approve/{id}','App\Http\Controllers\ApprovalController@approved');
-    Route::get('/approve/{id_oss}/{id_user}','App\Http\Controllers\ApprovalController@approved_2nd');
-    Route::get('/dismiss/{id}','App\Http\Controllers\ApprovalController@dismissed');
+    Route::get('/approval',[ApprovalController::class,'index']);
+    Route::post('/approve/{id}',[ApprovalController::class,'approved']);
+    Route::get('/approve/{id_oss}/{id_user}',[ApprovalController::class,'approved_2nd']);
+    Route::get('/dismiss/{id}',[ApprovalController::class,'dismissed']);
+    Route::get('/showdoc/{id}',[ApprovalController::class,'showdoc']);
 
     Route::get('/level',[LevelApprovalController::class,'index']);
     Route::post('/get_user',[LevelApprovalController::class,'get_user']);
@@ -57,6 +60,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/forme/{id}',[FormController::class,'edit']);
     Route::post('/forme/{id}',[FormController::class,'update']);
     Route::get('/formd/{id}',[FormController::class,'delete']);
+
 });
 
 Route::get('/login', 'App\Http\Controllers\CustomAuthController@index')->name('login');
@@ -69,3 +73,11 @@ Route::get('/profile/{id}', [ProfileController::class, 'edit']);
 Route::post('/profile/{id}', [ProfileController::class, 'update']);
 Route::get('/profiled/{id}', [ProfileController::class, 'destroy']);
 Route::get('/reset/{id}',[ProfileController::class, 'reset'])->name('reset');
+
+
+
+
+
+Route::get('/jos',function () {
+    return view('jos');
+});

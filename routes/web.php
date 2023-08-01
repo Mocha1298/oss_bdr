@@ -73,11 +73,3 @@ Route::get('/profile/{id}', [ProfileController::class, 'edit']);
 Route::post('/profile/{id}', [ProfileController::class, 'update']);
 Route::get('/profiled/{id}', [ProfileController::class, 'destroy']);
 Route::get('/reset/{id}',[ProfileController::class, 'reset'])->name('reset');
-
-
-
-
-
-Route::get('/jos',function () {
-    return view('jos');
-});

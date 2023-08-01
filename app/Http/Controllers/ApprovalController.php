@@ -74,7 +74,7 @@ class ApprovalController extends Controller
     function dismissed($id) {
         $oss = OssModel::find($id);
         $oss->status = 2;
-        $oss->save();
+        $oss->update();
         $data["email"] = $oss->email_pic;
         $data["title"] = "Permintaan Anda ditolak";
         $data["body"] = "Dengan beberapa pertimbangan kami menyampaikan bahwa permintaan Anda kami tolak dikarenakan alasan tertentu.";

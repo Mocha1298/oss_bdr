@@ -15,7 +15,7 @@
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
         /* css normal */
-        @font-face {
+        /* @font-face {
             font-family: font-black;
             src: url(/Poppins/Poppins-Bold.ttf);
         }
@@ -23,6 +23,20 @@
         @font-face {
             font-family: font-med;
             src: url(/Poppins/Poppins-Regular.ttf);
+        } */
+        @font-face {
+            font-family: font-black;
+            src: url(/Roboto/Roboto-Bold.ttf);
+        }
+
+        @font-face {
+            font-family: font-med;
+            src: url(/Roboto/Roboto-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: font-itlc;
+            src: url(/Roboto/Roboto-Italic.ttf);
         }
 
         .container {
@@ -59,16 +73,6 @@
         label {
             font-family: font-black;
             margin-bottom: 10px;
-        }
-
-        h1 {
-            position: absolute;
-            margin: 0;
-            font-size: 40px;
-            color: #fff;
-            z-index: 2;
-            line-height: 83px;
-            font-family: font-black;
         }
 
         .testbox {
@@ -216,7 +220,7 @@
         }
 
         .sub-input {
-            font-style: italic;
+            font-family: font-itlc;
             font-size: 12px;
         }
 
@@ -232,11 +236,25 @@
             }
 
             img.img-fluid {
-                width: 600px;
+                width: 500px;
             }
 
             .container {
                 max-width: 100%;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            input[type="email"],
+            input[type="file"],
+            input[type="time"] {
+                width: calc(100% - 10px);
+                padding: 20px 30px;
+                border-radius: 20px;
+                text-transform: uppercase;
+                font-family: font-black;
+                color: #666;
             }
 
             body,
@@ -245,7 +263,7 @@
             select,
             textarea,
             label {
-                font-size: 40px;
+                font-size: 30px;
                 line-height: 60px;
             }
 
@@ -265,7 +283,6 @@
                 position: absolute;
                 font-size: 40px;
                 color: #0093ad !important;
-
             }
 
             .item i {
@@ -359,16 +376,6 @@
             label {
                 font-family: font-black;
                 margin-bottom: 10px;
-            }
-
-            h1 {
-                position: absolute;
-                margin: 0;
-                font-size: 40px;
-                color: #fff;
-                z-index: 2;
-                line-height: 83px;
-                font-family: font-black;
             }
 
             .testbox {
@@ -892,13 +899,13 @@
     </nav>
     <div class="container mt-5 mb-5">
         <div class="card">
-            <div class="card-header d-flex justify-content-between" style="background: #134a6e !important">
+            <div class="card-header d-flex justify-content-center p-4" style="background: #134a6e !important">
                 <div class="header-title">
-                    <h4 style="font-family: font-black; color:#fff">Form Registrasi</h4>
+                    <h1 style="font-family: font-black; color:#fff">FORMULIR PENDAFTARAN</h1>
                 </div>
             </div>
             <div class="card-body" style="background: rgba(241, 241, 241, 0.603);">
-                <p>*) = Elemen wajib di isi</p>
+                <p class="sub-input" style="font-family: font-itlc">*) = Elemen wajib di isi</p>
                 <form action="/post-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">

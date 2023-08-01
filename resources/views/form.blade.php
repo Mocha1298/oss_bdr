@@ -15,7 +15,7 @@
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
         /* css normal */
-        @font-face {
+        /* @font-face {
             font-family: font-black;
             src: url(/Poppins/Poppins-Bold.ttf);
         }
@@ -23,6 +23,24 @@
         @font-face {
             font-family: font-med;
             src: url(/Poppins/Poppins-Regular.ttf);
+        } */
+        @font-face {
+            font-family: font-black;
+            src: url(/Roboto/Roboto-Bold.ttf);
+        }
+
+        @font-face {
+            font-family: font-med;
+            src: url(/Roboto/Roboto-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: font-itlc;
+            src: url(/Roboto/Roboto-Italic.ttf);
+        }
+
+        .container {
+            max-width: 50%;
         }
 
         h2#swal2-title.swal2-title {
@@ -55,16 +73,6 @@
         label {
             font-family: font-black;
             margin-bottom: 10px;
-        }
-
-        h1 {
-            position: absolute;
-            margin: 0;
-            font-size: 40px;
-            color: #fff;
-            z-index: 2;
-            line-height: 83px;
-            font-family: font-black;
         }
 
         .testbox {
@@ -212,7 +220,7 @@
         }
 
         .sub-input {
-            font-style: italic;
+            font-family: font-itlc;
             font-size: 12px;
         }
 
@@ -223,41 +231,30 @@
         /* css normal */
 
         @media(min-width: 320px) and (min-width: 641px) {
-            input[type=checkbox] {
-                position: relative;
-                cursor: pointer;
-            }
-
-            input[type=checkbox]:before {
-                border-radius: 3px;
-                background-color: white;
-            }
-
-            input[type=checkbox]:checked:after {
-                content: "";
-                display: block;
-                width: 5px;
-                height: 10px;
-                border: solid black;
-                border-width: 0 2px 2px 0;
-                -webkit-transform: rotate(45deg);
-                -ms-transform: rotate(45deg);
-                transform: rotate(45deg);
-                position: absolute;
-                top: 0;
-                left: 12px;
-            }
-
             a.tombol.add {
                 margin-right: 100px;
             }
 
             img.img-fluid {
-                width: 600px;
+                width: 500px;
             }
 
             .container {
-                max-width: 50%;
+                max-width: 100%;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            input[type="email"],
+            input[type="file"],
+            input[type="time"] {
+                width: calc(100% - 10px);
+                padding: 20px 30px;
+                border-radius: 20px;
+                text-transform: uppercase;
+                font-family: font-black;
+                color: #666;
             }
 
             body,
@@ -266,7 +263,7 @@
             select,
             textarea,
             label {
-                font-size: 40px;
+                font-size: 30px;
                 line-height: 60px;
             }
 
@@ -286,7 +283,6 @@
                 position: absolute;
                 font-size: 40px;
                 color: #0093ad !important;
-
             }
 
             .item i {
@@ -318,7 +314,7 @@
             }
 
             a span {
-                font-size: 25px;
+                font-size: 35px;
             }
 
             a.tombol {
@@ -327,12 +323,16 @@
         }
 
         @media(min-width: 642px) and (min-width: 1281px) {
+            .container {
+                max-width: 50%;
+            }
+
             img.img-fluid {
                 width: 300px;
             }
 
             a span {
-                font-size: 12px;
+                font-size: 15px;
             }
 
 
@@ -376,16 +376,6 @@
             label {
                 font-family: font-black;
                 margin-bottom: 10px;
-            }
-
-            h1 {
-                position: absolute;
-                margin: 0;
-                font-size: 40px;
-                color: #fff;
-                z-index: 2;
-                line-height: 83px;
-                font-family: font-black;
             }
 
             .testbox {
@@ -544,7 +534,7 @@
         .containeradio {
             display: block;
             position: relative;
-            padding-left: 35px;
+            padding-left: 50px;
             margin-bottom: 12px;
             cursor: pointer;
             -webkit-user-select: none;
@@ -560,11 +550,13 @@
             cursor: pointer;
         }
 
+        /* RAdiobutton */
+
         /* Create a custom radio button */
         .checkmark {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 5px;
+            left: 20px;
             height: 15px;
             width: 15px;
             background-color: #eee;
@@ -607,6 +599,296 @@
             font-size: 15px;
             font-family: font-med;
         }
+
+        /* CHeckbox */
+
+        /* Hide the browser's default radio button */
+        .containeradio input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark2 {
+            position: absolute;
+            top: 12px;
+            left: 13px;
+            height: 15px;
+            width: 15px;
+            background-color: #eee;
+            /* border-radius: 50%; */
+        }
+
+        /* On mouse-over, add a grey background color */
+        .containeradio:hover input~.checkmark2 {
+            background-color: #ccc;
+        }
+
+        /* When the radio button is checked, add a blue background */
+        .containeradio input:checked~.checkmark2 {
+            background-color: #2196F3;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark2:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .containeradio input:checked~.checkmark2:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .containeradio .checkmark2:after {
+            top: 5px;
+            left: 5px;
+            width: 5px;
+            height: 5px;
+            /* border-radius: 50%; */
+            background: white;
+        }
+
+        @media(min-width: 320px) and (min-width: 641px) {
+            .containeradio {
+                display: block;
+                position: relative;
+                padding-left: 100px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* Hide the browser's default radio button */
+            .containeradio input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            /* RAdiobutton */
+
+            /* Create a custom radio button */
+            .checkmark {
+                position: absolute;
+                top: 5px;
+                left: 20px;
+                height: 35px;
+                width: 35px;
+                background-color: #eee;
+                border-radius: 50%;
+            }
+
+            /* On mouse-over, add a grey background color */
+            .containeradio:hover input~.checkmark {
+                background-color: #ccc;
+            }
+
+            /* When the radio button is checked, add a blue background */
+            .containeradio input:checked~.checkmark {
+                background-color: #2196F3;
+            }
+
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the indicator (dot/circle) when checked */
+            .containeradio input:checked~.checkmark:after {
+                display: block;
+            }
+
+            /* Style the indicator (dot/circle) */
+            .containeradio .checkmark:after {
+                top: 10px;
+                left: 10px;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background: white;
+            }
+
+            label.containeradio {
+                font-size: 35px;
+            }
+
+            /* CHeckbox */
+
+            /* Create a custom radio button */
+            .checkmark2 {
+                position: absolute;
+                top: 12px;
+                left: 13px;
+                height: 35px;
+                width: 35px;
+                background-color: #eee;
+                /* border-radius: 50%; */
+            }
+
+            /* On mouse-over, add a grey background color */
+            .containeradio:hover input~.checkmark2 {
+                background-color: #ccc;
+            }
+
+            /* When the radio button is checked, add a blue background */
+            .containeradio input:checked~.checkmark2 {
+                background-color: #2196F3;
+            }
+
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark2:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the indicator (dot/circle) when checked */
+            .containeradio input:checked~.checkmark2:after {
+                display: block;
+            }
+
+            /* Style the indicator (dot/circle) */
+            .containeradio .checkmark2:after {
+                top: 10px;
+                left: 10px;
+                width: 15px;
+                height: 15px;
+                /* border-radius: 50%; */
+                background: white;
+            }
+        }
+
+        @media(min-width: 642px) and (min-width: 1281px) {
+            .containeradio {
+                display: block;
+                position: relative;
+                padding-left: 50px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /* Hide the browser's default radio button */
+            .containeradio input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            /* RAdiobutton */
+
+            /* Create a custom radio button */
+            .checkmark {
+                position: absolute;
+                top: 5px;
+                left: 20px;
+                height: 15px;
+                width: 15px;
+                background-color: #eee;
+                border-radius: 50%;
+            }
+
+            /* On mouse-over, add a grey background color */
+            .containeradio:hover input~.checkmark {
+                background-color: #ccc;
+            }
+
+            /* When the radio button is checked, add a blue background */
+            .containeradio input:checked~.checkmark {
+                background-color: #2196F3;
+            }
+
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the indicator (dot/circle) when checked */
+            .containeradio input:checked~.checkmark:after {
+                display: block;
+            }
+
+            /* Style the indicator (dot/circle) */
+            .containeradio .checkmark:after {
+                top: 5px;
+                left: 5px;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: white;
+            }
+
+            label.containeradio {
+                font-size: 15px;
+                font-family: font-med;
+            }
+
+            /* CHeckbox */
+
+            /* Hide the browser's default radio button */
+            .containeradio input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            /* Create a custom radio button */
+            .checkmark2 {
+                position: absolute;
+                top: 12px;
+                left: 13px;
+                height: 15px;
+                width: 15px;
+                background-color: #eee;
+                /* border-radius: 50%; */
+            }
+
+            /* On mouse-over, add a grey background color */
+            .containeradio:hover input~.checkmark2 {
+                background-color: #ccc;
+            }
+
+            /* When the radio button is checked, add a blue background */
+            .containeradio input:checked~.checkmark2 {
+                background-color: #2196F3;
+            }
+
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark2:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the indicator (dot/circle) when checked */
+            .containeradio input:checked~.checkmark2:after {
+                display: block;
+            }
+
+            /* Style the indicator (dot/circle) */
+            .containeradio .checkmark2:after {
+                top: 5px;
+                left: 5px;
+                width: 5px;
+                height: 5px;
+                /* border-radius: 50%; */
+                background: white;
+            }
+        }
     </style>
 </head>
 
@@ -617,13 +899,13 @@
     </nav>
     <div class="container mt-5 mb-5">
         <div class="card">
-            <div class="card-header d-flex justify-content-between" style="background: #134a6e !important">
+            <div class="card-header d-flex justify-content-center p-4" style="background: #134a6e !important">
                 <div class="header-title">
-                    <h4 style="font-family: font-black; color:#fff">Form Registrasi</h4>
+                    <h1 style="font-family: font-black; color:#fff">FORMULIR PENDAFTARAN</h1>
                 </div>
             </div>
             <div class="card-body" style="background: rgba(241, 241, 241, 0.603);">
-                <p>*) = Elemen wajib di isi</p>
+                <p class="sub-input" style="font-family: font-itlc">*) = Elemen wajib di isi</p>
                 <form action="/post-form" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -710,22 +992,30 @@
                     </div>
                     <div class="add_dokumen"></div>
                     <div class="row">
-                        <div class="col-lg-1 col-1">
+                        {{-- <div class="col-lg-1 col-1">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value=""
-                                    id="flexCheckDefault1" required style="width: 30px;margin-top:15px">
+                                    id="flexCheckDefault1" required style="width: 30px;margin-top:15px;font-size:25px">
                             </div>
                         </div>
                         <div class="col-lg-11 col-11">
                             <label class="form-check-label sub-input" for="flexCheckDefault1"
-                                style="font-family: font-black; font-style: normal;">
+                                style="font-family: font-black; font-style: normal;" id="checkbox">
                                 Saya mengerti dan menerima<a style="background: none" data-toggle="modal"
                                     data-target="#exampleModalLong"><span style="cursor: pointer">
                                         Syarat dan
                                         Ketentuan </span></a>penggunaan
                                 sistem OSS
                             </label>
-                        </div>
+                        </div> --}}
+                        <label class="containeradio">Saya mengerti dan menerima<a style="background: none"
+                                data-toggle="modal" data-target="#exampleModalLong"><span style="cursor: pointer">
+                                    Syarat dan
+                                    Ketentuan </span></a>penggunaan
+                            sistem OSS
+                            <input type="checkbox">
+                            <span class="checkmark2"></span>
+                        </label>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mt-3">

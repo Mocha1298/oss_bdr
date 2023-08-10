@@ -8,17 +8,21 @@ use App\Mail\BdrOssMail;
 use App\Models\OssModel;
 use App\Models\OssFileModel;
 use App\Models\LevelModel;
+use Illuminate\Support\Str;
 
 class BdrOssController extends Controller
 {
     public function post(Request $req)
     {
+
+        $rand = (string) Str::orderedUuid();
         $level = LevelModel::where('levels.id_site',1)
         ->join('users','users.id','levels.id_user')
         ->select('users.email','levels.level')
         ->orderBy('levels.level','asc')->first();
         // return $level->email;
         $oss = new OssModel();
+        $oss->id_unix = $rand;
         $oss->inc_name = $req->inc_name;
         $oss->inc_type = $req->inc_type;
         $oss->pic = $req->pic;
@@ -56,6 +60,20 @@ class BdrOssController extends Controller
             }
             
         });
+
+        $data["email"] = $req->email;
+        $data["title"] = "SELAMAT! PERMOHONAN ANDA SELESAI DIBUAT (BOROBUDUR OSS)";
+        $data["body"] = 
+            "<span style='color:black;'>Dibawah terlampir <strong>Kode Unix</strong> yang dapat Anda gunakan untuk cek status permohonan:</span><br>
+            <div style='width:100%;height:70px;text-align:center;border:1px;background:#cecece'>
+            <h4 style='padding-top: 15px;'>".$rand."</h4>
+            </div>";
+
+        Mail::send('mail', $data, function($message)use($data) {
+            $message->to($data["email"], $data["email"])
+                    ->subject($data["title"]);
+        });
+
         return view('thanks');
     }
 }

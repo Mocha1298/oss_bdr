@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('oss', function (Blueprint $table) {
             $table->id();
+            $table->string('id_unix');
             $table->string('inc_name');
             $table->string('inc_type');
             $table->string('pic');

@@ -20,8 +20,11 @@ use App\Http\Controllers\ApprovalController;
 */
 
 Route::get('/', function () {
-    return view('form');
+    return view('home');
 });
+// Route::get('/', function () {
+//     return view('form');
+// });
 Route::get('/ex1', function () {
     return view('example1');
 });

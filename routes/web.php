@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/approve/{id_oss}/{id_user}',[ApprovalController::class,'approved_2nd']);
     Route::get('/dismiss/{id}',[ApprovalController::class,'dismissed']);
     Route::get('/showdoc/{id}',[ApprovalController::class,'showdoc']);
+    Route::get('/showpdf/{id}',[ApprovalController::class,'showpdf']);
 
     Route::get('/level',[LevelApprovalController::class,'index']);
     Route::post('/get_user',[LevelApprovalController::class,'get_user']);

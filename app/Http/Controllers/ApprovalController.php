@@ -117,9 +117,14 @@ class ApprovalController extends Controller
         return redirect()->back()->with('sukses','1');
     }
     function showdoc($id) {
-        $pdfPath = 'files/1690648379apr.pdf'; // Path to the PDF file (modify as per your file's location)
-        $pdfContent = Storage::get($pdfPath);
-
-        return response()->json(base64_encode($pdfContent));
+        $files = OssFileModel::where('id_oss',$id)->get();
+        return $files;
+    }
+    function showpdf($id) {
+        $files = OssFileModel::find($id);
+        $data = [
+            'files'=>$files
+        ];
+        return view('showpdf',$data);
     }
 }

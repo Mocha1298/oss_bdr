@@ -14,8 +14,9 @@ class BdrOssController extends Controller
 {
     public function post(Request $req)
     {
-
         $rand = (string) Str::orderedUuid();
+        // echo $rand."<br>";
+        $rand = "TWC-".strtoupper(substr($rand,0,13));
         $level = LevelModel::where('levels.id_site',1)
         ->join('users','users.id','levels.id_user')
         ->select('users.email','levels.level')

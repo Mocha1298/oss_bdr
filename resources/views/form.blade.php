@@ -47,15 +47,16 @@
                         <div class="form-group col-md-12">
                             <label for="#">Jenis Instansi<span class="wajib"> (wajib diisi)</span></label><br>
                             <label class="containeradio">Pemerintah
-                                <input type="radio" name="inc_type" value="Pemerintah" onclick="hideother()" checked>
+                                <input type="radio" name="inc_type" value="Pemerintah" onclick="hideother()" checked
+                                    required>
                                 <span class="checkmark"></span>
                             </label>
                             <label class="containeradio">Swasta
-                                <input type="radio" name="inc_type" value="Swasta" onclick="hideother()">
+                                <input type="radio" name="inc_type" value="Swasta" onclick="hideother()" required>
                                 <span class="checkmark"></span>
                             </label>
                             <label class="containeradio">Lainya:
-                                <input type="radio" name="inc_type" onclick="showother()">
+                                <input type="radio" name="inc_type" onclick="showother()" required>
                                 <span class="checkmark"></span>
                             </label>
                             <input style="display:none" id="inc_type" type="text" name="inc_type" />
@@ -361,6 +362,7 @@
                 }
             }
         }
+        hideother();
         // alert('Your screen resolution is ' + screen.width + 'x' + screen.height);
     </script>
 </body>

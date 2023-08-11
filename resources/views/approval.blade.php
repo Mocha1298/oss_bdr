@@ -107,24 +107,40 @@
         }
 
         function showdoc(id) {
-            // var pdfContainer = document.getElementById('isilampiran');
-            // console.log(pdfContainer);
-
-            // var xhr = new XMLHttpRequest();
-            // xhr.onreadystatechange = function() {
-            //     if (xhr.readyState === XMLHttpRequest.DONE) {
-            //         if (xhr.status === 200) {
-            //             var pdfContent = xhr.responseText;
-            //             var pdfData = 'data:application/pdf;base64,' + pdfContent;
-            //             pdfContainer.innerHTML = '<embed src="' + pdfData +
-            //                 '" type="application/pdf" width="100%" height="500px" />';
-            //         } else {
-            //             pdfContainer.innerHTML = '<p>Error loading PDF.</p>';
-            //         }
-            //     }
-            // };
-            // xhr.open('GET', '/showdoc/' + id, true);
-            // xhr.send();
+            $.ajax({
+                type: 'GET',
+                url: "/showdoc/" + id,
+                beforeSend: function() {
+                    swal.fire({
+                        html: '<h5>Sedang Memuat Lampiran</h5>',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    });
+                },
+                success: function(e) {
+                    Swal.close()
+                    lampiran = $('#lampiran');
+                    lampiran.empty();
+                    $.each(e, function(index, e) {
+                        if (e.file.match('pdf')) {
+                            nomor = index + 1;
+                            button =
+                                '<a class="btn btn-sm btn-icon btn-info" href="/showpdf/' + e.id +
+                                '">Lampiran ' + nomor + ' </a>'
+                            lampiran.append(button);
+                        } else {
+                            nomor = index + 1;
+                            button =
+                                '<a class="btn btn-sm btn-icon btn-info" href="/files/' + e.file +
+                                '">Lampiran ' + nomor + ' </a>'
+                            lampiran.append(button);
+                        }
+                    })
+                }
+            });
         }
     </script>
 @endsection
@@ -168,7 +184,7 @@
                                         <td>
                                             <a class="btn btn-sm btn-icon btn-info" href="#"
                                                 onclick="showdoc({{ $list->id }})" data-bs-placement="top"
-                                                data-bs-toggle="modal" href="#" data-bs-target="#lampiran">
+                                                data-bs-toggle="modal" href="#" data-bs-target="#lampiranmodal">
                                                 Lampiran
                                             </a>
                                         </td>
@@ -347,13 +363,15 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="lampiran" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="lampiranmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body text-start">
-                    <p><strong>Lampiran:</strong></p>
-                    <div id="isilampiran"></div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lampiran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="lampiran"></div>
                 </div>
             </div>
         </div>

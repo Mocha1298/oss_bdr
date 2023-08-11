@@ -10,8 +10,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
+        body {
+            min-height: 100vh;
+        }
+
         .nav-item {
             margin-left: 30px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 95%;
+            height: 50px;
+        }
+
+        .nav-link:hover {
+            border-bottom: 3px solid;
+            border-color: rgb(32, 92, 226);
         }
     </style>
     <title>Beranda</title>
@@ -37,18 +53,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> --}}
             </ul>
         </div>
     </nav>
@@ -58,38 +62,46 @@
                 <h3>Selamat Datang di Borobudur Online Single Submission</h3>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-lg-6 col-md-6 col-12">
-                <a href="#">
-                    <div class="row border p-lg-5 p-2 m-1 rounded bg-primary text-light align-middle">
-                        <div class="col">
-                            <img class="img-fluid" width="100%" height="auto"
-                                src="https://apostille.ahu.go.id/assets/images/create.png" alt="Card image cap">
-                        </div>
-                        <div class="col-6">
-                            <h5 class="card-title">Buat Permohonan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12">
-                <a href="#">
-                    <div class="row border p-lg-5 p-2 m-1 rounded bg-primary text-light">
-                        <div class="col-6">
-                            <img class="img-fluid w-lg-100 w-10" height="auto"
-                                src="https://apostille.ahu.go.id/assets/images/create.png" alt="Card image cap">
-                        </div>
-                        <div class="col-6 h-6">
-                            <h5 class="card-title d-flex align-items-center">Buat Permohonan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
         <div class="container">
+            <div class="row mt-5 col-12 text-light">
+                <div class="col-lg-1 col-12"></div>
+                <div class="card col-lg-5 col-12" style="background: rgb(32, 92, 226)">
+                    <div class="row g-0">
+                        <div class="col-sm-5">
+                            <img src="https://apostille.ahu.go.id/assets/images/create.png" class="card-img-top h-100"
+                                alt="...">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title">Buat Permohonan</h5>
+                                <p class="card-text">Klik disini untuk membuat permintaan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-12"></div>
+                <div class="card col-lg-5 col-12 mt-lg-0 mt-3" style="background: rgb(52, 209, 191)">
+                    <div class="row g-0">
+                        <div class="col-sm-5">
+                            <img src="https://apostille.ahu.go.id/assets/images/register.png" class="card-img-top h-100"
+                                alt="...">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title">Buat Permohonan</h5>
+                                <p class="card-text">Klik disini untuk membuat permintaan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
+    <div class="container-fluid">
+        <footer class="py-3 my-4">
+            <p class="text-center text-muted">© 2023 PT TAMAN WISATA CANDI BOROBUDUR PRAMBANAN & RATU BOKO</p>
+        </footer>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
